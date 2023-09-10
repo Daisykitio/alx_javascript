@@ -1,19 +1,15 @@
-// Import the 'request' module
 const request = require('request');
 const fs = require('fs');
-const utf8 = require('utf8'); // Import the 'utf8' module for encoding
+const utf8 = require('utf8');
 
-// Check if the user provided both URL and file path arguments
 if (process.argv.length !== 4) {
   console.error('Usage: node 3-request_store.js <URL> <file-path>');
   process.exit(1);
 }
 
-// Get the URL and file path from the command line arguments
 const url = process.argv[2];
 const filePath = process.argv[3];
 
-// Send a GET request to the specified URL
 request.get(url, (error, response, body) => {
   if (error) {
     console.error(`Error: ${error.message}`);
@@ -25,7 +21,9 @@ request.get(url, (error, response, body) => {
       if (writeError) {
         console.error(`Error writing to file: ${writeError.message}`);
       } else {
+        const contentLength = utf8.encode(body).length; // Calculate content length
         console.log(`Content saved to ${filePath}`);
+        console.log(`Content Length: ${contentLength} characters`);
       }
     });
   }
