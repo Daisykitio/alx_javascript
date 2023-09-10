@@ -3,7 +3,7 @@ const request = require('request');
 
 // Check if the user provided the API URL as an argument
 if (process.argv.length !== 3) {
-  console.error('Usage: node 2-starwars_count.js <API URL>');
+  console.error('Usage: node 2-starwars_count.js <https://swapi-api.alx-tools.com/api/films/>');
   process.exit(1);
 }
 
