@@ -1,4 +1,3 @@
-// Import the 'request' module
 const request = require('request');
 
 // Check if the user provided the API URL as an argument
@@ -27,7 +26,7 @@ request.get(apiUrl, (error, response, body) => {
       });
 
       // Print the number of movies with Wedge Antilles
-      console.log(moviesWithWedge.length);
+      console.log('Number of movies with Wedge Antilles:', moviesWithWedge.length);
     } catch (parseError) {
       console.error(`Error parsing JSON response: ${parseError.message}`);
     }
