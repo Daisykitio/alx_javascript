@@ -21,10 +21,12 @@ request.get(apiUrl, (error, response, body) => {
       // Parse the JSON response
       const data = JSON.parse(body);
 
-      // Filter the movies that contain the character ID 18 (Wedge Antilles)
-      const moviesWithWedge = data.results.filter((movie) => {
-        return movie.characters.includes('https://swapi-api.alx-tools.com/api/people/18/');
-      });
+     // Filter the movies that contain the character ID 18 (Wedge Antilles)
+     const moviesWithWedge = data.results.filter((movie) => {
+     const wedgeUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
+     return movie.characters.some((character) => character === wedgeUrl);
+});
+
 
       // Print the number of movies with Wedge Antilles
       console.log(moviesWithWedge.length);
