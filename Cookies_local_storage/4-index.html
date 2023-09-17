@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.1.1/src/js.cookie.js"></script>
+    <style>
+        /* Add CSS styles for the form and welcome message */
+        #login-form {
+            display: none;
+        }
+
+        #welcome-message {
+            font-style: italic;
+            font-weight: normal;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cookies Example</h1>
+
+    <!-- Create a div for the login form -->
+    <div id="login-form">
+        <h2>Login Form</h2>
+        <label for="login-firstname">First Name:</label>
+        <input type="text" id="login-firstname">
+        <br>
+        <label for="login-email">Email:</label>
+        <input type="text" id="login-email">
+        <br>
+        <button onclick="setCookiesAndShowWelcomeMessage()">Log me in</button>
+        <button onclick="hideForm()">Hide Form</button>
+        <button onclick="deleteCookiesAndShowForm()">Logout</button>
+    </div>
+
+    <div id="welcome-message"></div>
+
+    <script>
+        // Existing functions (showForm, hideForm)
+
+        function deleteCookiesAndShowForm() {
+            // Use js-cookie remove function to delete cookies
+            Cookies.remove('firstname');
+            Cookies.remove('email');
+            showForm();
+        }
+
+        function showWelcomeMessageOrForm() {
+            const firstname = Cookies.get('firstname');
+            if (firstname) {
+                const welcomeMessage = document.getElementById('welcome-message');
+                welcomeMessage.innerHTML = `Welcome ${firstname} <a href="#" onclick="deleteCookiesAndShowForm()"> (logout)</a>`;
+                welcomeMessage.style.display = 'block';
+            } else {
+                showForm();
+            }
+        }
+
+        // New function to set cookies and show the welcome message
+        function setCookiesAndShowWelcomeMessage() {
+            const firstname = document.getElementById('login-firstname').value;
+            const email = document.getElementById('login-email').value;
+
+            // Use js-cookie set function to set cookies with a 10-day expiration
+            Cookies.set('firstname', firstname, { expires: 10 });
+            Cookies.set('email', email, { expires: 10 });
+
+            showWelcomeMessageOrForm();
+        }
+
+        // Call showWelcomeMessageOrForm to initialize the page
+        showWelcomeMessageOrForm();
+    </script>
+</body>
+</html>
+
