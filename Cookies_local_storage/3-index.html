@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies Example</title>
+    <style>
+        /* Add CSS styles for the form and welcome message */
+        #login-form {
+            display: none;
+        }
+
+        #welcome-message {
+            font-style: italic;
+            font-weight: normal;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cookies Example</h1>
+
+    <!-- Create a div for the login form -->
+    <div id="login-form">
+        <h2>Login Form</h2>
+        <label for="login-firstname">First Name:</label>
+        <input type="text" id="login-firstname">
+        <br>
+        <label for="login-email">Email:</label>
+        <input type="text" id="login-email">
+        <br>
+        <button onclick="setCookies()">Log me in</button>
+        <button onclick="hideForm()">Hide Form</button>
+        <button onclick="deleteCookiesAndShowForm()">Logout</button>
+    </div>
+
+    <div id="welcome-message"></div>
+
+    <script>
+        // Existing functions (setCookies, showCookies, getCookie)
+
+        function showForm() {
+            const welcomeMessage = document.getElementById('welcome-message');
+            const loginForm = document.getElementById('login-form');
+            if (welcomeMessage) {
+                welcomeMessage.style.display = 'none';
+            }
+            loginForm.style.display = 'block';
+        }
+
+        function hideForm() {
+            const loginForm = document.getElementById('login-form');
+            loginForm.style.display = 'none';
+        }
+
+        function deleteCookiesAndShowForm() {
+            document.cookie = 'firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+            document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+            showForm();
+        }
+
+        function showWelcomeMessageOrForm() {
+            const firstname = getCookie('firstname');
+            if (firstname) {
+                const welcomeMessage = document.getElementById('welcome-message');
+                welcomeMessage.innerHTML = `Welcome ${firstname} <a href="#" onclick="deleteCookiesAndShowForm()"> (logout)</a>`;
+                welcomeMessage.style.display = 'block';
+            } else {
+                showForm();
+            }
+        }
+
+        // Call showWelcomeMessageOrForm to initialize the page
+        showWelcomeMessageOrForm();
+    </script>
+</body>
+</html>
+
